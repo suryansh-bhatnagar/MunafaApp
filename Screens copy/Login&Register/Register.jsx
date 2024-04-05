@@ -45,7 +45,7 @@ function RegisterPage({ props }) {
       return Alert.alert('Invalid Admin');
     }
     axios
-      .post('http://localhost:5001/register', userData)
+      .post('http://192.168.38.163:5001/register', userData)
       .then(res => {
         console.log(res.data);
         if (res.data.status == 'ok') {

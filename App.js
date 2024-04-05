@@ -1,3 +1,4 @@
+import React from 'react';
 import 'react-native-gesture-handler';
 import {
   NavigationContainer,
@@ -20,55 +21,55 @@ import Toast, { BaseToast, ErrorToast } from 'react-native-toast-message';
 import UpdateProfile from './Screens/UpdateProfile/UpdateProfile';
 import AdminScreen from './Screens/AdminScreen';
 
-// const toastConfig = {
-//   success: props => (
-//     <BaseToast
-//       {...props}
-//       style={{
-//         borderLeftColor: 'green',
-//         borderLeftWidth: 7,
-//         width: '90%',
-//         height: 70,
-//         borderRightColor: 'green',
-//         borderRightWidth: 7,
-//       }}
-//       contentContainerStyle={{ paddingHorizontal: 15 }}
-//       text1Style={{
-//         fontSize: 17,
-//         fontWeight: '700',
-//       }}
-//       text2Style={{
-//         fontSize: 14,
-//       }}
-//     />
-//   ),
-//   /*
-//     Overwrite 'error' type,
-//     by modifying the existing `ErrorToast` component
-//   */
-//   error: props => (
-//     <ErrorToast
-//       {...props}
-//       text2NumberOfLines={3}
-//       style={{
-//         borderLeftColor: 'red',
-//         borderLeftWidth: 7,
-//         width: '90%',
-//         height: 70,
-//         borderRightColor: 'red',
-//         borderRightWidth: 7,
-//       }}
-//       contentContainerStyle={{ paddingHorizontal: 15 }}
-//       text1Style={{
-//         fontSize: 17,
-//         fontWeight: '700',
-//       }}
-//       text2Style={{
-//         fontSize: 14,
-//       }}
-//     />
-//   ),
-// };
+const toastConfig = {
+  success: props => (
+    <BaseToast
+      {...props}
+      style={{
+        borderLeftColor: 'green',
+        borderLeftWidth: 7,
+        width: '90%',
+        height: 70,
+        borderRightColor: 'green',
+        borderRightWidth: 7,
+      }}
+      contentContainerStyle={{ paddingHorizontal: 15 }}
+      text1Style={{
+        fontSize: 17,
+        fontWeight: '700',
+      }}
+      text2Style={{
+        fontSize: 14,
+      }}
+    />
+  ),
+  /*
+    Overwrite 'error' type,
+    by modifying the existing `ErrorToast` component
+  */
+  error: props => (
+    <ErrorToast
+      {...props}
+      text2NumberOfLines={3}
+      style={{
+        borderLeftColor: 'red',
+        borderLeftWidth: 7,
+        width: '90%',
+        height: 70,
+        borderRightColor: 'red',
+        borderRightWidth: 7,
+      }}
+      contentContainerStyle={{ paddingHorizontal: 15 }}
+      text1Style={{
+        fontSize: 17,
+        fontWeight: '700',
+      }}
+      text2Style={{
+        fontSize: 14,
+      }}
+    />
+  ),
+};
 
 const StackNav = () => {
   const Stack = createNativeStackNavigator();
@@ -87,20 +88,21 @@ const StackNav = () => {
       <Stack.Screen
         name="Home"
         component={HomeScreen}
-        options={
-          {
-            // headerLeft: () => {
-            //   return (
-            //     <Icon
-            //       name="menu"
-            //       onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
-            //       size={30}
-            //       color="#fff"
-            //     />
-            //   );
-            // },
-          }
-        }
+        options={{
+          headerShown: true,
+          // {
+          //   headerLeft: () => {
+          //     return (
+          //       <Icon
+          //         name="menu"
+          //         onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
+          //         size={30}
+          //         color="#fff"
+          //       />
+          //     );
+          //   },
+          // }
+        }}
       />
       <Stack.Screen name="Profile" component={ProfileScreen} />
       <Stack.Screen
@@ -144,8 +146,8 @@ const LoginNav = () => {
       }}>
       <Stack.Screen name="Login" component={LoginPage} />
       <Stack.Screen name="Register" component={RegisterPage} />
-      {/* <Stack.Screen name="Home" component={DrawerNav} />
-      <Stack.Screen name="AdminScreen" component={AdminStack} /> */}
+      <Stack.Screen name="Home" component={StackNav} />
+      {/* <Stack.Screen name="AdminScreen" component={AdminStack} />  */}
     </Stack.Navigator>
   );
 };

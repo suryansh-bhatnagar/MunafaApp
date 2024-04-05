@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -11,7 +12,6 @@ import { useNavigation } from '@react-navigation/native';
 import styles from './style';
 import Feather from 'react-native-vector-icons/Feather';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import { useEffect, useState } from 'react';
 import { log } from 'react-native-reanimated';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -21,40 +21,36 @@ function LoginPage({ props }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  function handleSubmit() {
+  async function handleSubmit() {
     console.log(email, password);
     const userData = {
       email: email,
-      password,
+      password: password,
     };
 
-    axios.post('http://localhost:5001/login-user', userData).then(res => {
-      console.log(res.data);
-      if (res.data.status == 'ok') {
-        Alert.alert('Logged In Successfull');
-        AsyncStorage.setItem('token', res.data.data);
-        AsyncStorage.setItem('isLoggedIn', JSON.stringify(true));
-        AsyncStorage.setItem('userType', res.data.userType)
-        // navigation.navigate('Home');
-        if (res.data.userType == "Admin") {
-          navigation.navigate('AdminScreen');
-        } else {
+    await axios
+      .post('http://192.168.38.163:5001/login-user', userData)
+      .then(res => {
+        console.log('Login response ', res.data);
+        if (res.data.status === 'ok') {
+          Alert.alert('Logged In Successfull');
+          AsyncStorage.setItem('token', res.data.data);
+          AsyncStorage.setItem('isLoggedIn', JSON.stringify(true));
+          // navigation.navigate('Home');
+          console.log('navigating to home page');
           navigation.navigate('Home');
         }
-
-      }
-    });
+      });
   }
   async function getData() {
     const data = await AsyncStorage.getItem('isLoggedIn');
 
     console.log(data, 'at app.jsx');
-
   }
   useEffect(() => {
     getData();
-    console.log("Hii");
-  }, [])
+    console.log('Hii after get data');
+  }, []);
 
   return (
     <ScrollView

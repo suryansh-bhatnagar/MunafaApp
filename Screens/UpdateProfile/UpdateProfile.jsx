@@ -60,7 +60,7 @@ function UpdateProfile() {
     };
     console.log(formdata);
     axios
-      .post('http://localhost:5001/update-user', formdata)
+      .post('http://192.168.38.163:5001/update-user', formdata)
       .then(res => {
         console.log(res.data)
         if (res.data.status == "Ok") {

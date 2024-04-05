@@ -9,7 +9,7 @@ function UserScreen() {
   const [allUserData, setAllUserData] = useState('');
 
   async function getAllData() {
-    axios.get('http://localhost:5001/get-all-user').then(res => {
+    axios.get('http://192.168.38.163:5001/get-all-user').then(res => {
       console.log(res.data);
 
       setAllUserData(res.data.data);
