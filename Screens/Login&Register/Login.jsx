@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -8,15 +8,13 @@ import {
   ScrollView,
   Alert,
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import styles from './style';
-import Feather from 'react-native-vector-icons/Feather';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import { log } from 'react-native-reanimated';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-function LoginPage({ props }) {
+function LoginPage({props}) {
   const navigation = useNavigation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -29,23 +27,29 @@ function LoginPage({ props }) {
     };
 
     await axios
-      .post('http://192.168.38.163:5001/login-user', userData)
+      .post('http://192.168.51.163:5001/login-user', userData)
       .then(res => {
         console.log('Login response ', res.data);
         if (res.data.status === 'ok') {
           Alert.alert('Logged In Successfull');
           AsyncStorage.setItem('token', res.data.data);
           AsyncStorage.setItem('isLoggedIn', JSON.stringify(true));
-          // navigation.navigate('Home');
           console.log('navigating to home page');
-          navigation.navigate('Home');
+          navigation.navigate('MainApp');
+          navigation.reset({
+            index: 0,
+            routes: [{name: 'MainApp'}],
+          });
         }
       });
   }
   async function getData() {
     const data = await AsyncStorage.getItem('isLoggedIn');
+    if (data === true) {
+      navigation.navigate('MainApp');
+    }
 
-    console.log(data, 'at app.jsx');
+    console.log(data, 'user logged in');
   }
   useEffect(() => {
     getData();
@@ -54,9 +58,9 @@ function LoginPage({ props }) {
 
   return (
     <ScrollView
-      contentContainerStyle={{ flexGrow: 1 }}
+      contentContainerStyle={{flexGrow: 1}}
       keyboardShouldPersistTaps={'always'}>
-      <View style={{ backgroundColor: 'white' }}>
+      <View style={{backgroundColor: 'white'}}>
         <View style={styles.logoContainer}>
           <Image
             style={styles.logo}
@@ -92,7 +96,7 @@ function LoginPage({ props }) {
               marginTop: 8,
               marginRight: 10,
             }}>
-            <Text style={{ color: '#420475', fontWeight: '700' }}>
+            <Text style={{color: '#420475', fontWeight: '700'}}>
               Forgot Password
             </Text>
           </View>
@@ -104,8 +108,8 @@ function LoginPage({ props }) {
             </View>
           </TouchableOpacity>
 
-          <View style={{ padding: 15 }}>
-            <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#919191' }}>
+          <View style={{padding: 15}}>
+            <Text style={{fontSize: 14, fontWeight: 'bold', color: '#919191'}}>
               ----Or Continue as----
             </Text>
           </View>
@@ -137,7 +141,7 @@ function LoginPage({ props }) {
                 <FontAwesome
                   name="user-plus"
                   color="white"
-                  style={[styles.smallIcon2, { fontSize: 30 }]}
+                  style={[styles.smallIcon2, {fontSize: 30}]}
                 />
               </TouchableOpacity>
               <Text style={styles.bottomText}>Sign Up</Text>
@@ -153,7 +157,7 @@ function LoginPage({ props }) {
                 <FontAwesome
                   name="google"
                   color="white"
-                  style={[styles.smallIcon2, { fontSize: 30 }]}
+                  style={[styles.smallIcon2, {fontSize: 30}]}
                 />
               </TouchableOpacity>
               <Text style={styles.bottomText}>Google</Text>
@@ -169,7 +173,7 @@ function LoginPage({ props }) {
                 <FontAwesome
                   name="facebook-f"
                   color="white"
-                  style={[styles.smallIcon2, { fontSize: 30 }]}
+                  style={[styles.smallIcon2, {fontSize: 30}]}
                 />
               </TouchableOpacity>
               <Text style={styles.bottomText}>Facebook</Text>

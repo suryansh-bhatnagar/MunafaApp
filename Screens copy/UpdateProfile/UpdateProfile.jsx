@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -6,13 +6,13 @@ import {
   TextInput,
   ScrollView,
 } from 'react-native';
-import { Avatar } from 'react-native-paper';
+import {Avatar} from 'react-native-paper';
 import styles from './stylesProfileEdit';
 import Back from 'react-native-vector-icons/Ionicons';
-import { RadioButton } from 'react-native-paper';
+import {RadioButton} from 'react-native-paper';
 // import ImagePicker from 'react-native-image-crop-picker';
 import axios from 'axios';
-import { useRoute } from '@react-navigation/native';
+import {useRoute} from '@react-navigation/native';
 import Toast from 'react-native-toast-message';
 
 function UpdateProfile() {
@@ -39,7 +39,6 @@ function UpdateProfile() {
   //   });
   // };
 
-
   useEffect(() => {
     const userData = route.params.data;
     setEmail(userData.email);
@@ -47,7 +46,7 @@ function UpdateProfile() {
     setImage(userData.image);
     setProfession(userData.profession);
     setName(userData.name);
-    setMobile(userData.mobile)
+    setMobile(userData.mobile);
   }, []);
   const updateProfile = () => {
     const formdata = {
@@ -56,37 +55,34 @@ function UpdateProfile() {
       email,
       profession,
       mobile,
-      gender
+      gender,
     };
     console.log(formdata);
-    axios
-      .post('http://192.168.38.163:5001/update-user', formdata)
-      .then(res => {
-        console.log(res.data)
-        if (res.data.status == "Ok") {
-          Toast.show({
-            type: 'success',
-            text1: 'Updated',
-
-          })
-        }
-      });
+    axios.post('http://192.168.51.163:5001/update-user', formdata).then(res => {
+      console.log(res.data);
+      if (res.data.status == 'Ok') {
+        Toast.show({
+          type: 'success',
+          text1: 'Updated',
+        });
+      }
+    });
   };
 
   return (
     <ScrollView
       keyboardShouldPersistTaps={'always'}
       showsVerticalScrollIndicator={false}
-      contentContainerStyle={{ paddingBottom: 40 }}>
+      contentContainerStyle={{paddingBottom: 40}}>
       <View>
         <View style={styles.header}>
-          <View style={{ flex: 1 }}>
+          <View style={{flex: 1}}>
             <Back name="arrow-back" size={30} style={styles.backIcon} />
           </View>
-          <View style={{ flex: 3 }}>
+          <View style={{flex: 3}}>
             <Text style={styles.nameText}>Edit Profile</Text>
           </View>
-          <View style={{ flex: 1 }}></View>
+          <View style={{flex: 1}}></View>
         </View>
         <View style={styles.camDiv}>
           <View style={styles.camIconDiv}>
@@ -138,7 +134,7 @@ function UpdateProfile() {
           <View style={styles.infoEditView}>
             <Text style={styles.infoEditFirst_text}>Gender</Text>
 
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
               <View style={styles.radioView}>
                 <Text style={styles.radioText}>Male</Text>
                 <RadioButton

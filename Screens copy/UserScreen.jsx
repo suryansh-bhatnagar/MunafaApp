@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, FlatList, Image, TextInput } from 'react-native';
+import {useState, useEffect} from 'react';
+import {StyleSheet, Text, View, FlatList, Image, TextInput} from 'react-native';
 import axios from 'axios';
 import Icon from 'react-native-vector-icons/FontAwesome';
 function UserScreen() {
@@ -8,7 +8,7 @@ function UserScreen() {
   const [searchQuery, setSearchQuery] = useState('');
 
   async function getAllData() {
-    axios.get('http://192.168.38.163:5001/get-all-user').then(res => {
+    axios.get('http://192.168.51.163:5001/get-all-user').then(res => {
       console.log(res.data);
 
       setAllUserData(res.data.data);
@@ -17,10 +17,10 @@ function UserScreen() {
 
   function handleChange(query) {
     setSearchQuery(query);
-    const filtered = allUserData.filter(user =>
-      user.name.toLowerCase().includes(query.toLowerCase()) ||
-      user.email.toLowerCase().includes(query.toLowerCase())
-
+    const filtered = allUserData.filter(
+      user =>
+        user.name.toLowerCase().includes(query.toLowerCase()) ||
+        user.email.toLowerCase().includes(query.toLowerCase()),
     );
     setFilteredUsers(filtered);
   }
@@ -28,7 +28,7 @@ function UserScreen() {
   useEffect(() => {
     getAllData();
   }, []);
-  const UserCard = ({ data }) => (
+  const UserCard = ({data}) => (
     <View style={styles.card}>
       <Image
         source={{
@@ -62,14 +62,16 @@ function UserScreen() {
           />
         </View>
         <Text style={styles.recordsText}>
-          {searchQuery.length > 0 ? `${filteredUsers.length} records found` : `Total Records ${allUserData.length} `}
+          {searchQuery.length > 0
+            ? `${filteredUsers.length} records found`
+            : `Total Records ${allUserData.length} `}
         </Text>
       </View>
       <FlatList
         data={searchQuery.length > 0 ? filteredUsers : allUserData}
         showsVerticalScrollIndicator={false}
         keyExtractor={item => item._id}
-        renderItem={({ item }) => <UserCard data={item} />}
+        renderItem={({item}) => <UserCard data={item} />}
       />
     </View>
   );

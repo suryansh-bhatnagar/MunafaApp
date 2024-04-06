@@ -45,7 +45,7 @@ function RegisterPage({props}) {
     console.log('User data: ', userData);
     // if (nameVerify && emailVerify && passwordVerify && mobileVerify) {
     await axios
-      .post('http://192.168.38.163:5001/register', userData)
+      .post('http://192.168.51.163:5001/register', userData)
       .then(res => {
         console.log('Error', res.data);
         if (res.data.status === 'ok') {

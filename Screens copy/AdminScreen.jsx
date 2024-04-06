@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { Text, View, StyleSheet, Image, FlatList, Alert } from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {Text, View, StyleSheet, Image, FlatList, Alert} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
-import { Button } from 'react-native-paper';
+import {Button} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-function AdminScreen({ navigation }) {
+function AdminScreen({navigation}) {
   const [userData, setUserData] = useState('');
   const [allUserData, setAllUserData] = useState('');
 
   async function getAllData() {
-    axios.get('http://192.168.38.163:5001/get-all-user').then(res => {
+    axios.get('http://192.168.51.163:5001/get-all-user').then(res => {
       console.log(res.data);
 
       setAllUserData(res.data.data);
@@ -20,7 +20,7 @@ function AdminScreen({ navigation }) {
     const token = await AsyncStorage.getItem('token');
     console.log(token);
     axios
-      .post('http://192.168.38.163:5001/userdata', { token: token })
+      .post('http://192.168.51.163:5001/userdata', {token: token})
       .then(res => {
         console.log(res.data);
         setUserData(res.data.data);
@@ -39,17 +39,17 @@ function AdminScreen({ navigation }) {
 
   function deleteUser(data) {
     axios
-      .post('http://192.168.38.163:5001/delete-user', { id: data._id })
+      .post('http://192.168.51.163:5001/delete-user', {id: data._id})
       .then(res => {
         console.log(res.data);
-        if (res.data.status == "Ok") {
-          Alert.alert("User deleted");
+        if (res.data.status == 'Ok') {
+          Alert.alert('User deleted');
           getAllData();
         }
       });
   }
 
-  const UserCard = ({ data }) => (
+  const UserCard = ({data}) => (
     <View style={styles.card}>
       <Image
         source={{
@@ -87,7 +87,7 @@ function AdminScreen({ navigation }) {
           data={allUserData}
           showsVerticalScrollIndicator={false}
           keyExtractor={item => item._id}
-          renderItem={({ item }) => <UserCard data={item} />}
+          renderItem={({item}) => <UserCard data={item} />}
         />
       </View>
       <Button
@@ -99,7 +99,7 @@ function AdminScreen({ navigation }) {
           borderRadius: 0,
           margin: 0,
         }}
-        labelStyle={{ fontSize: 16 }}>
+        labelStyle={{fontSize: 16}}>
         Log Out
       </Button>
     </>

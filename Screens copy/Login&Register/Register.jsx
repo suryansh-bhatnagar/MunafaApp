@@ -7,18 +7,18 @@ const {
   ScrollView,
   Alert,
 } = require('react-native');
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import styles from './style';
 import Feather from 'react-native-vector-icons/Feather';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import Error from 'react-native-vector-icons/MaterialIcons';
-import { useState } from 'react';
+import {useState} from 'react';
 import axios from 'axios';
 import Toast from 'react-native-toast-message';
-import { RadioButton } from 'react-native-paper';
+import {RadioButton} from 'react-native-paper';
 
-function RegisterPage({ props }) {
+function RegisterPage({props}) {
   const [name, setName] = useState('');
   const [nameVerify, setNameVerify] = useState(false);
   const [email, setEmail] = useState('');
@@ -38,14 +38,14 @@ function RegisterPage({ props }) {
       email,
       mobile,
       password,
-      userType
+      userType,
     };
     // if (nameVerify && emailVerify && passwordVerify && mobileVerify) {
     if (userType == 'Admin' && secretText != 'Text1243') {
       return Alert.alert('Invalid Admin');
     }
     axios
-      .post('http://192.168.38.163:5001/register', userData)
+      .post('http://192.168.51.163:5001/register', userData)
       .then(res => {
         console.log(res.data);
         if (res.data.status == 'ok') {
@@ -105,10 +105,10 @@ function RegisterPage({ props }) {
   }
   return (
     <ScrollView
-      contentContainerStyle={{ flexGrow: 1 }}
+      contentContainerStyle={{flexGrow: 1}}
       showsVerticalScrollIndicator={false}
       keyboardShouldPersistTaps={'always'}
-      style={{ backgroundColor: 'white' }}>
+      style={{backgroundColor: 'white'}}>
       <View>
         <View style={styles.logoContainer}>
           <Image
@@ -187,7 +187,7 @@ function RegisterPage({ props }) {
               name="email"
               color="#420475"
               size={24}
-              style={{ marginLeft: 0, paddingRight: 5 }}
+              style={{marginLeft: 0, paddingRight: 5}}
             />
             <TextInput
               placeholder="Email"
@@ -214,7 +214,7 @@ function RegisterPage({ props }) {
               name="mobile"
               color="#420475"
               size={35}
-              style={{ paddingRight: 10, marginTop: -7, marginLeft: 5 }}
+              style={{paddingRight: 10, marginTop: -7, marginLeft: 5}}
             />
             <TextInput
               placeholder="Mobile"
@@ -249,14 +249,14 @@ function RegisterPage({ props }) {
               {password.length < 1 ? null : !showPassword ? (
                 <Feather
                   name="eye-off"
-                  style={{ marginRight: -10 }}
+                  style={{marginRight: -10}}
                   color={passwordVerify ? 'green' : 'red'}
                   size={23}
                 />
               ) : (
                 <Feather
                   name="eye"
-                  style={{ marginRight: -10 }}
+                  style={{marginRight: -10}}
                   color={passwordVerify ? 'green' : 'red'}
                   size={23}
                 />
