@@ -32,7 +32,7 @@ function HomeScreen(props) {
 
   const handleLogout = () => {
     AsyncStorage.removeItem('token');
-    AsyncStorage.removeItem('isLoggedIn');
+    AsyncStorage.setItem('isLoggedIn', JSON.stringify(false));
     navigation.navigate('Auth');
   };
 
@@ -55,7 +55,6 @@ function HomeScreen(props) {
     React.useCallback(() => {
       getData();
       BackHandler.addEventListener('hardwareBackPress', handleBackPress);
-
       return () => {
         BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
       };
@@ -75,7 +74,7 @@ function HomeScreen(props) {
           />
         </View>
         <View style={{marginTop: -50}}>
-          <Text style={styles.nameText}>{userData.name}</Text>
+          <Text style={styles.nameText}>{userData?.name}</Text>
         </View>
 
         <View style={{marginTop: 20, marginHorizontal: 25}}>
@@ -87,7 +86,7 @@ function HomeScreen(props) {
               <View style={styles.infoText}>
                 <Text style={styles.infoSmall_Text}>Email</Text>
                 <Text style={styles.infoLarge_Text} numberOfLines={1}>
-                  {userData.email}
+                  {userData?.email}
                 </Text>
               </View>
             </View>
@@ -100,7 +99,7 @@ function HomeScreen(props) {
               </View>
               <View style={styles.infoText}>
                 <Text style={styles.infoSmall_Text}>Mobile</Text>
-                <Text style={styles.infoLarge_Text}>{userData.mobile}</Text>
+                <Text style={styles.infoLarge_Text}>{userData?.mobile}</Text>
               </View>
             </View>
           </View>

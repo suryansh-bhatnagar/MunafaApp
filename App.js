@@ -78,7 +78,7 @@ function App() {
   return (
     <UserProvider>
       <NavigationContainer>
-        <RootStack.Navigator initialRouteName={data ? 'MainApp' : 'Auth'} screenOptions={{ headerShown: false }}>
+        <RootStack.Navigator initialRouteName={data === 'true' ? 'MainApp' : 'Auth'} screenOptions={{ headerShown: false }}>
           <RootStack.Screen name="Auth" component={LoginNav} />
           <RootStack.Screen name="MainApp" component={StackNav} />
         </RootStack.Navigator>
