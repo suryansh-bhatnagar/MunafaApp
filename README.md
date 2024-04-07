@@ -1,6 +1,19 @@
 
 # MunafaApp: Created using React Native 
 
+## Steps to run
+
+### 
+Ensure that your React Native setup is already complete before executing the steps provided below. If your setup is not yet complete, please follow the instructions given in this document: [React Native Environment Setup](https://reactnative.dev/docs/environment-setup) to complete it. 
+
+### Step 1 : Clone the Repository
+
+### Step 2 : run ```npm i```
+
+### Step 3 : create ```.env``` file and add ```RAZORPAY_KEY_ID``` and ```RAZORPAY_KEY_SECRET``` variables with value in .env file
+
+### Step 4 : run ```npm run android```
+
 ## Screenshots of App
 
 ### Login and Register Page
