@@ -11,6 +11,7 @@ import {UserContext} from '../contexts/UserContext';
 import axios from 'axios';
 import {useFocusEffect} from '@react-navigation/native';
 import {ScrollView} from 'react-native-virtualized-view';
+import { BASE_URL } from '../constants';
 
 export default function TransactionsList() {
   const {userData} = useContext(UserContext);
@@ -18,7 +19,7 @@ export default function TransactionsList() {
 
   async function getData() {
     axios
-      .post('http://192.168.51.163:5001/getAllTransactions', {
+      .post(`${BASE_URL}/getAllTransactions`, {
         email: userData.email,
       })
       .then(res => {

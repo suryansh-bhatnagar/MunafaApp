@@ -13,39 +13,9 @@ import RazorpayCheckout from 'react-native-razorpay';
 import {UserContext} from '../contexts/UserContext';
 import axios from 'axios';
 import {ScrollView} from 'react-native-virtualized-view';
-export default function ProductsList() {
-  const data = [
-    {
-      id: '1',
-      text: 'BAG 1',
-      description:
-        'Coral orange and brown colourblocked shoulder bag, has 1 main',
-      price: 300,
-    },
-    {
-      id: '2',
-      text: 'BAG 2',
-      description:
-        'Coral orange and brown colourblocked shoulder bag, has 1 main',
-      price: 200,
-    },
-    {
-      id: '3',
-      text: 'BAG 3',
-      description:
-        'Coral orange and brown colourblocked shoulder bag, has 1 main',
-      price: 100,
-    },
-    {
-      id: '4',
-      text: 'BAG 4',
-      description:
-        'Coral orange and brown colourblocked shoulder bag, has 1 main',
-      price: 3000,
-    },
-    // Add more items...
-  ];
+import {BASE_URL, data} from '../constants';
 
+export default function ProductsList() {
   const {userData} = useContext(UserContext);
 
   const handleCheckout = (description, amount, name) => {
@@ -69,7 +39,7 @@ export default function ProductsList() {
       .then(data => {
         // handle success
         alert(`Payment successful`);
-        const savePaymetApi = 'http://192.168.51.163:5001/savepaymentdetails';
+        const savePaymetApi = `${BASE_URL}/savepaymentdetails`;
         const payload = {
           name: userData.name,
           email: userData.email,

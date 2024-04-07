@@ -2,20 +2,20 @@ import {
   StyleSheet,
   Text,
   View,
-  Button,
   ScrollView,
   TouchableOpacity,
   Image,
   BackHandler,
   Alert,
 } from 'react-native';
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext} from 'react';
 import Mobile from 'react-native-vector-icons/Entypo';
 import Email from 'react-native-vector-icons/MaterialCommunityIcons';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {UserContext} from '../contexts/UserContext';
+import {BASE_URL} from '../constants';
 
 function HomeScreen(props) {
   const navigation = useNavigation();
@@ -25,12 +25,9 @@ function HomeScreen(props) {
   async function getData() {
     const token = await AsyncStorage.getItem('token');
     console.log(token);
-    axios
-      .post('http://192.168.51.163:5001/userdata', {token: token})
-      .then(res => {
-        console.log('User data', res.data);
-        setUserData(res.data.data);
-      });
+    axios.post(`${BASE_URL}/userdata`, {token: token}).then(res => {
+      setUserData(res.data.data);
+    });
   }
 
   const handleLogout = () => {

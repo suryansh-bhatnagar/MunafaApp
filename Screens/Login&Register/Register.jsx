@@ -16,8 +16,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import Error from 'react-native-vector-icons/MaterialIcons';
 import axios from 'axios';
-import Toast from 'react-native-toast-message';
-import {RadioButton} from 'react-native-paper';
+import {BASE_URL} from '../../constants';
 
 function RegisterPage({props}) {
   const [name, setName] = useState('');
@@ -29,8 +28,6 @@ function RegisterPage({props}) {
   const [password, setPassword] = useState('');
   const [passwordVerify, setPasswordVerify] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const [userType, setUserType] = useState('');
-  const [secretText, setSecretText] = useState('');
 
   const navigation = useNavigation();
   async function handelSubmit() {
@@ -45,7 +42,7 @@ function RegisterPage({props}) {
     console.log('User data: ', userData);
     // if (nameVerify && emailVerify && passwordVerify && mobileVerify) {
     await axios
-      .post('http://192.168.51.163:5001/register', userData)
+      .post(`${BASE_URL}/register`, userData)
       .then(res => {
         console.log('Error', res.data);
         if (res.data.status === 'ok') {

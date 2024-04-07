@@ -13,6 +13,7 @@ import styles from './style';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {BASE_URL} from '../../constants';
 
 function LoginPage({props}) {
   const navigation = useNavigation();
@@ -26,22 +27,16 @@ function LoginPage({props}) {
       password: password,
     };
 
-    await axios
-      .post('http://192.168.51.163:5001/login-user', userData)
-      .then(res => {
-        console.log('Login response ', res.data);
-        if (res.data.status === 'ok') {
-          Alert.alert('Logged In Successfull');
-          AsyncStorage.setItem('token', res.data.data);
-          AsyncStorage.setItem('isLoggedIn', JSON.stringify(true));
-          console.log('navigating to home page');
-          navigation.navigate('MainApp');
-          navigation.reset({
-            index: 0,
-            routes: [{name: 'MainApp'}],
-          });
-        }
-      });
+    await axios.post(`${BASE_URL}/login-user`, userData).then(res => {
+      console.log('Login response ', res.data);
+      if (res.data.status === 'ok') {
+        Alert.alert('Logged In Successfull');
+        AsyncStorage.setItem('token', res.data.data);
+        AsyncStorage.setItem('isLoggedIn', JSON.stringify(true));
+        console.log('navigating to home page');
+        navigation.navigate('MainApp');
+      }
+    });
   }
   async function getData() {
     const data = await AsyncStorage.getItem('isLoggedIn');
